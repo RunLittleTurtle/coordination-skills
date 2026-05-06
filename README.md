@@ -1,10 +1,8 @@
-# coordination-skills
+# coordination-skill
 
-Skills Claude Code personnels pour gérer plusieurs instances Claude qui travaillent en parallèle dans différentes fenêtres iTerm sur le même repo.
+Skill Claude Code pour coordonner plusieurs instances Claude qui travaillent en parallèle dans différentes fenêtres iTerm sur le même repo.
 
-## Skills inclus
-
-### `/coordination` — Coordination multi-instance
+## `/coordination` — Coordination multi-instance
 
 **Use case** : tu travailles dans 2-5 fenêtres iTerm en parallèle sur le même repo (typiquement de la doc : PRD, sprints, user stories) et tu veux que les instances Claude ne s'écrasent pas mutuellement les édits.
 
@@ -17,27 +15,16 @@ Skills Claude Code personnels pour gérer plusieurs instances Claude qui travail
 
 **Mécanisme** : locks advisory (convention sociale, pas verrou OS) avec TTL, format markdown lisible humainement.
 
-### `/worktree` — Sélection de git worktree
-
-**Use case** : tu veux ouvrir 2-3 sessions Claude en parallèle sur des branches différentes du même repo sans conflit physique de fichiers.
-
-**Ce que fait le skill** :
-- Liste les git worktrees existants
-- Permet d'en créer un nouveau (dans `~/worktrees/<repo>-<nom>/`) avec une nouvelle branche
-- Bascule la session courante dans un worktree existant
-
 ## Structure
 
 ```
 coordination-skills/
-├── README.md                  ← ce fichier
-├── coordination/
-│   └── SKILL.md              ← skill /coordination
-└── worktree/
-    └── SKILL.md              ← skill /worktree
+├── README.md
+└── coordination/
+    └── SKILL.md
 ```
 
-Chaque sous-dossier correspond à un skill. Le fichier `SKILL.md` à l'intérieur contient le frontmatter (nom, description) et le body que Claude exécute quand on invoque la commande.
+Le fichier `SKILL.md` contient le frontmatter (nom, description) et le body que Claude exécute quand on invoque la commande.
 
 ## Installation
 
@@ -47,25 +34,24 @@ Chaque sous-dossier correspond à un skill. Le fichier `SKILL.md` à l'intérieu
 # 1. Cloner le repo quelque part
 git clone https://github.com/RunLittleTurtle/coordination-skills.git ~/code/coordination-skills
 
-# 2. Symlinker chaque skill dans ~/.claude/skills/
+# 2. Symlinker le skill dans ~/.claude/skills/
 mkdir -p ~/.claude/skills
 ln -s ~/code/coordination-skills/coordination ~/.claude/skills/coordination
-ln -s ~/code/coordination-skills/worktree ~/.claude/skills/worktree
 ```
 
-Les commandes `/coordination` et `/worktree` deviennent alors disponibles dans toutes tes sessions Claude Code.
+La commande `/coordination` devient alors disponible dans toutes tes sessions Claude Code.
 
-### Mettre à jour les skills
+### Mettre à jour le skill
 
 ```bash
 cd ~/code/coordination-skills
 git pull
 ```
 
-Les symlinks pointent vers le repo, donc le pull suffit — pas besoin de recopier.
+Le symlink pointe vers le repo, donc le pull suffit — pas besoin de recopier.
 
 ## Notes
 
-- Skills user-level (`~/.claude/skills/`) : disponibles dans tous tes repos.
-- Si tu veux un skill scope-é à un repo spécifique, mets-le plutôt dans `<repo>/.claude/skills/` au lieu de symlinker.
-- Réponses des skills en français (j'ai écrit ces skills pour mon usage perso francophone).
+- Skill user-level (`~/.claude/skills/`) : disponible dans tous tes repos.
+- Si tu veux le skill scope-é à un repo spécifique, mets-le plutôt dans `<repo>/.claude/skills/` au lieu de symlinker.
+- Réponses du skill en français.
