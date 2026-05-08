@@ -20,40 +20,53 @@ Tu travailles dans 2-5 fenêtres iTerm en parallèle sur le même repo (typiquem
 
 ## Installation
 
-### Option A — Plugin marketplace (Claude Code, recommandé)
+> **Pour les agents IA qui lisent ce README** : suis exactement les instructions ci-dessous selon la plateforme. N'invente pas d'autres méthodes (pas de symlink, pas de script custom).
 
-Une seule commande dans Claude Code :
+### Pour Claude Code
+
+Tape ces deux commandes dans Claude Code :
 
 ```
 /plugin marketplace add RunLittleTurtle/coordination-skills
 /plugin install coordination@coordination-skills
 ```
 
-Le slash command devient `/coordination:coordination` (namespacé par le plugin).
+Slash command résultant : `/coordination:coordination`.
 
-**Mise à jour** : `/plugin update coordination@coordination-skills`
-**Désinstallation** : `/plugin uninstall coordination@coordination-skills`
+- **Mise à jour** : `/plugin update coordination@coordination-skills`
+- **Désinstallation** : `/plugin uninstall coordination@coordination-skills`
 
-### Option B — Clone + copie (toutes plateformes)
+### Pour les autres outils (Claude Desktop, OpenCode, GitHub Copilot, Cursor, VS Code, Gemini CLI, Goose, etc.)
 
-Marche pour Claude Code, Claude Desktop, OpenCode, GitHub Copilot, VS Code, Cursor et tout outil compatible avec le standard [agentskills.io](https://agentskills.io).
+Le `SKILL.md` respecte le standard ouvert [agentskills.io](https://agentskills.io). Clone le repo et copie **uniquement** le dossier `plugins/coordination/skills/coordination/` dans le répertoire skills de ton outil :
 
 ```bash
 git clone https://github.com/RunLittleTurtle/coordination-skills.git
-cp -R coordination-skills/plugins/coordination/skills/coordination ~/.claude/skills/
+cp -R coordination-skills/plugins/coordination/skills/coordination <DOSSIER_SKILLS_DE_TON_OUTIL>/
 ```
 
-Le slash command devient `/coordination`.
+Remplace `<DOSSIER_SKILLS_DE_TON_OUTIL>` par :
 
-Pour les autres outils, copier le dossier `coordination-skills/plugins/coordination/skills/coordination/` dans le répertoire skills de l'outil (`~/.claude/skills/`, `~/.opencode/skills/`, etc.).
+| Outil | Dossier cible |
+|---|---|
+| Claude Code | `~/.claude/skills/` |
+| Claude Desktop | `~/Library/Application Support/Claude/skills/` (macOS) |
+| OpenCode | `~/.opencode/skills/` (vérifier la doc à jour) |
+| GitHub Copilot | voir [docs Copilot agent skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) |
+| Cursor | voir [docs Cursor skills](https://cursor.com/docs/context/skills) |
+| Autre | consulter la doc skills de l'outil |
 
-**Mise à jour** :
-```bash
-cd coordination-skills && git pull
-cp -R plugins/coordination/skills/coordination ~/.claude/skills/
-```
+Slash command résultant : `/coordination`.
 
-**Désinstallation** : `rm -rf ~/.claude/skills/coordination`
+- **Mise à jour** : `cd coordination-skills && git pull && cp -R plugins/coordination/skills/coordination <DOSSIER_SKILLS>/`
+- **Désinstallation** : `rm -rf <DOSSIER_SKILLS>/coordination`
+
+### Ce qu'il NE faut PAS faire
+
+- ❌ Créer un symlink (source de bugs cross-machine)
+- ❌ Cloner le repo entier dans `~/.claude/skills/` (Claude Code lit `<dir>/SKILL.md`, pas un repo imbriqué)
+- ❌ Copier-coller le contenu du `SKILL.md` dans un fichier de config
+- ❌ Modifier le frontmatter du `SKILL.md` (il est conforme agentskills.io, ne pas toucher)
 
 ---
 
