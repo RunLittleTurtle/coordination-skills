@@ -2,9 +2,22 @@
 
 Skill Claude Code pour coordonner plusieurs instances Claude qui travaillent en parallèle dans différentes fenêtres iTerm sur le même repo.
 
-## Use case
+## Use cases
 
-Tu travailles dans 2-5 fenêtres iTerm en parallèle sur le même repo (typiquement de la doc : PRD, sprints, user stories) et tu veux que les instances Claude ne s'écrasent pas mutuellement les édits.
+### Multi-instance solo (cas de base)
+
+Tu travailles dans 2-5 fenêtres iTerm en parallèle sur le même repo local (typiquement de la doc : PRD, sprints, user stories) et tu veux que les instances Claude ne s'écrasent pas mutuellement les édits.
+
+### Multi-utilisateurs via cloud sync (collaboration distribuée)
+
+Si le repo vit dans un dossier synchronisé en temps réel (iCloud Drive, Google Drive, Dropbox, OneDrive, Syncthing…), **plusieurs personnes sur des machines différentes — chacune avec son propre agent IA (Claude Code, Copilot, Cursor, OpenCode, etc.) — peuvent collaborer sur les mêmes fichiers de doc** sans collision.
+
+Le système de locks markdown advisory + TTL marche tant que la sync cloud propage les `COORDINATION.*.md` rapidement (typiquement <1 s pour iCloud / Google Drive). Chaque agent voit en quasi-temps-réel qui édite quoi, avec quel intent, et quand le lock expire.
+
+**Limitations** :
+- Coordination *best-effort* (advisory locks, pas verrou OS) — si deux instances éditent strictement au même instant avant que la sync propage, collision possible. Le TTL de 30 min et les recaps réguliers minimisent les conflits.
+- Nécessite que la sync cloud soit active sur toutes les machines impliquées.
+- Pas de garantie d'ordre strict si la latence sync est élevée (>5 s).
 
 ## Ce que fait le skill
 
