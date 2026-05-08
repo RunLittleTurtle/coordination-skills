@@ -1,0 +1,15 @@
+{
+  "name": "coordination-skills",
+  "owner": {
+    "name": "Samuel Audette",
+    "url": "https://github.com/RunLittleTurtle"
+  },
+  "plugins": [
+    {
+      "name": "coordination",
+      "source": "./plugins/coordination",
+      "description": "Coordonner plusieurs instances Claude qui travaillent en parallèle sur le même repo via locks markdown",
+      "version": "1.0.0"
+    }
+  ]
+}
